@@ -15,8 +15,9 @@ export const HomePage = () => {
 
     const initialized = useRef(false);
 
+    /** 임시로 100000s 로 바꿈 */
     const { lat, lng, error } = useGeolocation(
-        1000,
+        100000,
         useMemo(() => ({ enableHighAccuracy: true }), [])
     );
 
@@ -26,6 +27,7 @@ export const HomePage = () => {
         mapRef.current = new mapboxgl.Map({
             container: mapContainer.current!,
             style: "mapbox://styles/mapbox/streets-v12",
+            attributionControl: false,
             center: [126.978, 37.5665],
             zoom: 7,
         });

@@ -21,7 +21,7 @@ self.addEventListener("notificationclick", (event) => {
     event.notification.close();
     event.waitUntil(clients.openWindow("/"));
 });
-t;
+
 self.addEventListener("message", (event) => {
     if (event.data?.type === "test-push") {
         const data = event.data.payload;

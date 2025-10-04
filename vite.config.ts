@@ -11,4 +11,8 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+    server: {
+    host: true, // 👈 이거 추가
+    port: 5173, // 포트는 원하는 대로
+  },
 });
