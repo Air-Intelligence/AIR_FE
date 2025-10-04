@@ -6,31 +6,6 @@ interface PolygonLayerProps {
     map: mapboxgl.Map | null;
 }
 
-const normalizePolygon = (geoJson: any) => {
-    if (geoJson.type === "FeatureCollection") {
-        return {
-            ...geoJson,
-            features: geoJson.features.map((f: any) => {
-                if (f.geometry?.type === "Polygon") {
-                    const coords = f.geometry.coordinates;
-
-                    const wrapped =
-                        coords.length && typeof coords[0][0] === "number" ? [coords] : coords;
-                    return {
-                        ...f,
-                        geometry: {
-                            ...f.geometry,
-                            coordinates: wrapped,
-                        },
-                    };
-                }
-                return f;
-            }),
-        };
-    }
-    return geoJson;
-};
-
 export const PolygonLayer = ({ map }: PolygonLayerProps) => {
     const bounds = useMapBounds(map);
 
@@ -47,8 +22,7 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                 });
 
                 // API 응답에서 GeoJSON 꺼내오기
-                const rawGeoJson = data.content;
-                const geoJson = normalizePolygon(rawGeoJson);
+                const geoJson = data.content;
 
                 console.log(geoJson.features[0].geometry.coordinates);
                 if (map.getSource("weather-polygon")) {

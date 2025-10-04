@@ -47,13 +47,18 @@ export const HomePage = () => {
             zoom: 7,
         });
 
+        setZoomLevel(mapRef.current.getZoom());
+
         mapRef.current.on("zoom", () => {
+            setZoomLevel(mapRef.current!.getZoom());
+        });
+
+        mapRef.current.on("moveend", () => {
             setZoomLevel(mapRef.current!.getZoom());
         });
     }, []);
 
     useEffect(() => {
-        // console.log(`위도: ${lat}, 경도: ${lng}`);
         if (lat && lng && mapRef.current) {
             if (!initialized.current) {
                 mapRef.current.setZoom(7);
@@ -73,10 +78,56 @@ export const HomePage = () => {
         }
     }, [lat, lng]);
 
+    /** PolygonLayer visibility 제어 */
+    useEffect(() => {
+        const polygonVisible = zoomLevel > 8;
+        if (!mapRef.current) return;
+        const fillId = "weather-polygon-fill";
+        const lineId = "weather-polygon-outline";
+
+        if (mapRef.current.getLayer(fillId)) {
+            mapRef.current.setLayoutProperty(
+                fillId,
+                "visibility",
+                polygonVisible ? "visible" : "none"
+            );
+        }
+        if (mapRef.current.getLayer(lineId)) {
+            mapRef.current.setLayoutProperty(
+                lineId,
+                "visibility",
+                polygonVisible ? "visible" : "none"
+            );
+        }
+    }, [zoomLevel]);
+
+    /**  PointLayer visibility 제어 */
+    useEffect(() => {
+        const pointVisible = zoomLevel <= 8;
+        if (!mapRef.current) return;
+        const circleId = "weather-points-circle";
+        const labelId = "weather-points-label";
+
+        if (mapRef.current.getLayer(circleId)) {
+            mapRef.current.setLayoutProperty(
+                circleId,
+                "visibility",
+                pointVisible ? "visible" : "none"
+            );
+        }
+        if (mapRef.current.getLayer(labelId)) {
+            mapRef.current.setLayoutProperty(
+                labelId,
+                "visibility",
+                pointVisible ? "visible" : "none"
+            );
+        }
+    }, [zoomLevel]);
+
     if (error) {
         return <div>내 위치 정보를 가져올 수 없습니다: {error}</div>;
     }
-    console.log(zoomLevel);
+
     return (
         <div style={{ width: "100%", height: "100vh", position: "relative" }}>
             <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
