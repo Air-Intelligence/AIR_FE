@@ -5,6 +5,7 @@ import { useGeolocation } from "../../hooks/useGeolocation";
 import { WarningModal } from "../../components/WarningModal";
 import { useMapBounds } from "../../hooks/useMapBounds";
 import { PolygonLayer } from "../../components/PolygonLayer";
+import { PointLayer } from "../../components/PointLayer";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -17,6 +18,8 @@ export const HomePage = () => {
     const markerRef = useRef<mapboxgl.Marker | null>(null);
 
     const initialized = useRef(false);
+
+    const [zoomLevel, setZoomLevel] = useState<number>(7);
 
     // 지도의 우측 하단, 좌측 상단 lat, lng 반환
     // const bounds = useMapBounds(mapRef.current);
@@ -44,16 +47,16 @@ export const HomePage = () => {
             zoom: 7,
         });
 
-        // mapRef.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
+        mapRef.current.on("zoom", () => {
+            setZoomLevel(mapRef.current!.getZoom());
+        });
     }, []);
 
     useEffect(() => {
         // console.log(`위도: ${lat}, 경도: ${lng}`);
         if (lat && lng && mapRef.current) {
-            // mapRef.current.setCenter([lng, lat]);
-
             if (!initialized.current) {
-                mapRef.current.setZoom(12);
+                mapRef.current.setZoom(7);
                 mapRef.current.setCenter([lng, lat]);
                 initialized.current = true;
             }
@@ -73,7 +76,7 @@ export const HomePage = () => {
     if (error) {
         return <div>내 위치 정보를 가져올 수 없습니다: {error}</div>;
     }
-
+    console.log(zoomLevel);
     return (
         <div style={{ width: "100%", height: "100vh", position: "relative" }}>
             <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
@@ -84,6 +87,7 @@ export const HomePage = () => {
                 </button>
             </div>
             <PolygonLayer map={mapRef.current} />
+            <PointLayer map={mapRef.current} />
             <div className="flex flex-col absolute right-4 bottom-8 w-16 h-44 rounded-[16px] overflow-hidden">
                 <button
                     className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"

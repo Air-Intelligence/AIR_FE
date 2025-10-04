@@ -16,6 +16,25 @@ export interface WeatherPolygonResponse {
     timestamp: string;
 }
 
+export interface WeatherPointResponse {
+    statusCode: number;
+    content: {
+        type: "FeatureCollection";
+        features: Array<{
+            type: "Feature";
+            geometry: {
+                type: "Point";
+                coordinates: [number, number]; // [lon, lat]
+            };
+            properties: {
+                value: number;
+                [key: string]: any;
+            };
+        }>;
+    };
+    timestamp: string;
+}
+
 export const weatherApi = {
     getPolygon: async (params: {
         lowerLat: number;
@@ -35,5 +54,22 @@ export const weatherApi = {
                 },
             })
             .json<WeatherPolygonResponse>();
+    },
+    getPoints: async (params: {
+        lowerLat: number;
+        lowerLon: number;
+        upperLat: number;
+        upperLon: number;
+    }): Promise<WeatherPointResponse> => {
+        return await api
+            .get("weathers/point", {
+                searchParams: {
+                    "lower-lat": params.lowerLat,
+                    "lower-lon": params.lowerLon,
+                    "upper-lat": params.upperLat,
+                    "upper-lon": params.upperLon,
+                },
+            })
+            .json<WeatherPointResponse>();
     },
 };
