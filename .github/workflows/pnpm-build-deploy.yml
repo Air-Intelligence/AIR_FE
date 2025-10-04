@@ -9,7 +9,7 @@ env:
   DOCKER_IMAGE: ${{ secrets.DOCKER_USERNAME }}/air-core-dev-fe-images
   VITE_PUBLIC_MAPBOX_KEY: ${{ secrets.VITE_PUBLIC_MAPBOX_KEY }}
   VITE_VAPID_PUBLIC_KEY: ${{ secrets.VITE_VAPID_PUBLIC_KEY }}
-  VITE_PUBLIC_API_URL: "http://springboot:8080"
+  VITE_PUBLIC_API_URL: ${{ secrets.VITE_PUBLIC_API_URL }}
 
 jobs:
   build:
