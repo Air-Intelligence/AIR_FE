@@ -8,6 +8,7 @@ import { PointLayer } from "../../components/PointLayer";
 import { WarningButton } from "../../components/WarningButton";
 import { InfoButton } from "../../components/InfoButton";
 import { ZoomControl } from "../../components/ZoomControl";
+import { OnboardingModal } from "../../components/OnboardingModal";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -20,6 +21,16 @@ export const HomePage = () => {
     const initialized = useRef(false);
 
     const [zoomLevel, setZoomLevel] = useState<number>(7);
+    const [showOnboarding, setShowOnboarding] = useState<boolean>(true);
+
+    useEffect(() => {
+        const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding");
+        if (!hasSeenOnboarding) {
+            setShowOnboarding(true);
+        } else {
+            setShowOnboarding(false);
+        }
+    }, []);
 
     /** 임시로 100000s 로 바꿈 */
     const { lat, lng, error } = useGeolocation(
@@ -78,8 +89,8 @@ export const HomePage = () => {
             if (!markerRef.current) {
                 // 마커 없으면 새로 만들고
                 const el = document.createElement("div");
-                el.style.width = "40px";
-                el.style.height = "40px";
+                el.style.width = "24px";
+                el.style.height = "24px";
                 el.style.backgroundImage = `url(${MyLocation})`;
                 el.style.backgroundSize = "contain";
                 el.style.backgroundRepeat = "no-repeat";
@@ -160,9 +171,20 @@ export const HomePage = () => {
     return (
         <div style={{ width: "100%", height: "100vh", position: "relative" }}>
             <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
-
+            {showOnboarding && (
+                <OnboardingModal
+                    onFinish={() => {
+                        localStorage.setItem("hasSeenOnboarding", "true");
+                        setShowOnboarding(false);
+                    }}
+                />
+            )}
             <WarningButton />
-            <InfoButton />
+            <InfoButton
+                onResetOnboarding={() => {
+                    setShowOnboarding(true);
+                }}
+            />
 
             <PolygonLayer map={mapRef.current} />
             <PointLayer map={mapRef.current} />

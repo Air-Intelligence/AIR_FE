@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Background from "@/assets/WelcomeBackground.png";
 import AirLogo from "../../assets/AirLogo.svg?react";
 import RightArrow from "../../assets/RightArrow.svg?react";
-import { TutorialModal } from "../../components/TutorialModal";
 
 export const WelcomePage = () => {
     const navigate = useNavigate();
