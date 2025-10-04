@@ -9,6 +9,7 @@ import { WarningButton } from "../../components/WarningButton";
 import { InfoButton } from "../../components/InfoButton";
 import { ZoomControl } from "../../components/ZoomControl";
 import { OnboardingModal } from "../../components/OnboardingModal";
+import { TimerTrigger } from "../../components/TimerTrigger";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -94,15 +95,15 @@ export const HomePage = () => {
             markerRef.current.setLngLat([lng, lat]);
         }
 
-        const latOffset = 120 / 111; // 위도 1도 = 111km
-        const lngOffset = 120 / (111 * Math.cos((lat * Math.PI) / 180)); // 경도는 위도 따라 달라짐
-        const bounds: mapboxgl.LngLatBoundsLike = [
-            [lng - lngOffset, lat - latOffset], // 남서쪽
-            [lng + lngOffset, lat + latOffset], // 북동쪽
-        ];
+        // const latOffset = 120 / 111; // 위도 1도 = 111km
+        // const lngOffset = 120 / (111 * Math.cos((lat * Math.PI) / 180)); // 경도는 위도 따라 달라짐
+        // const bounds: mapboxgl.LngLatBoundsLike = [
+        //     [lng - lngOffset, lat - latOffset], // 남서쪽
+        //     [lng + lngOffset, lat + latOffset], // 북동쪽
+        // ];
 
-        mapRef.current.setMaxBounds(bounds);
-        (mapRef.current as any).setMaxBoundsViscosity?.(0.7);
+        // mapRef.current.setMaxBounds(bounds);
+        // (mapRef.current as any).setMaxBoundsViscosity?.(0.7);
     }, [lat, lng]);
 
     const handleGoToMyLocation = () => {
@@ -177,6 +178,9 @@ export const HomePage = () => {
                 />
             )}
             <WarningButton />
+
+            <TimerTrigger hour={0.02} />
+
             <InfoButton
                 onResetOnboarding={() => {
                     setShowOnboarding(true);
@@ -187,7 +191,7 @@ export const HomePage = () => {
             <PointLayer map={mapRef.current} />
 
             <ZoomControl map={mapRef.current} />
-            {/* <div id="my-custom-slot" className="absolute scale-130 bottom-55 right-6" /> */}
+
             <button
                 className="absolute bottom-55 right-4 w-12 h-12 rounded-xl bg-[#FFCE48] active:bg-custom-pressed text-white flex items-center justify-center text-xl"
                 onClick={handleGoToMyLocation}

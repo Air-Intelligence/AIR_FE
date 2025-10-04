@@ -1,0 +1,128 @@
+import { useState, useEffect, useMemo } from "react";
+
+import { cn } from "../lib/utils";
+import ReadyIcon from "../assets/ReadyIcon.svg?react";
+import WarningIcon from "../assets/WarningIcon.svg?react";
+import DangerIcon from "../assets/DangerIcon.svg?react";
+import RunIcon from "../assets/RunIcon.svg?react";
+
+type TimerState = "ready" | "warning" | "danger" | "run" | "done";
+
+interface TimerModalProps {
+    state: TimerState;
+    hour: number; // 일단은 hour 로만 받음
+    overrideSeconds?: number;
+    progress?: number;
+    onClose: () => void;
+}
+
+/**
+ * 색상을 바깥에서 props 로 전달해 주면 됨
+ */
+export const TimerModal = ({
+    state,
+    hour,
+    overrideSeconds,
+    progress = 0,
+    onClose,
+}: TimerModalProps) => {
+    const [timerState, setTimerState] = useState<TimerState>(state);
+
+    const totalSeconds = hour * 3600;
+
+    const secondsLeft = useMemo(() => {
+        if (overrideSeconds !== undefined) return overrideSeconds;
+        return totalSeconds;
+    }, [overrideSeconds, totalSeconds]);
+
+    const formatTime = (s: number) => {
+        const h = String(Math.floor(s / 3600)).padStart(2, "0");
+        const m = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
+        const sec = String(s % 60).padStart(2, "0");
+        return `${h}:${m}:${sec}`;
+    };
+
+    const iconMap = {
+        ready: <ReadyIcon className="w-16 h-16" />,
+        warning: <WarningIcon className="w-16 h-16" />,
+        danger: <DangerIcon className="w-16 h-16" />,
+        run: <RunIcon className="w-16 h-16" />,
+    };
+
+    const colorMap: Record<TimerState, string> = {
+        ready: "#4ADE80", // green
+        warning: "#FACC15", // yellow
+        danger: "#EF4444", // red
+        run: "#3B82F6", // blue
+    };
+
+    useEffect(() => {
+        if (secondsLeft <= 0) {
+            setTimerState("done");
+        }
+    }, [secondsLeft]);
+    console.log(timerState);
+    return (
+        <div
+            className="fixed inset-0 flex items-center justify-center bg-black/40 z-50"
+            onClick={onClose}
+        >
+            {timerState === "done" ? (
+                <div
+                    className="bg-white rounded-3xl w-[320px] p-6 flex flex-col items-center shadow-xl"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    끝
+                    {/* OK 버튼 */}
+                    <button
+                        onClick={onClose}
+                        className={cn(
+                            "w-44 h-13 rounded-xl text-white font-medium",
+                            "bg-black active:bg-gray-800"
+                        )}
+                    >
+                        OK
+                    </button>
+                </div>
+            ) : (
+                <div
+                    className="bg-white rounded-3xl w-[320px] p-6 flex flex-col items-center shadow-xl"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {/* Icon */}
+                    <div className="mb-2">{iconMap[timerState]}</div>
+
+                    {/* 상태 텍스트 */}
+                    <h2 className="font-bold text-base mb-3 capitalize">{state}</h2>
+
+                    {/* 시간 */}
+                    <div className="text-[45px] font-bold leading-[100%] mb-8">
+                        {formatTime(secondsLeft)}
+                    </div>
+
+                    {/* Progress bar */}
+                    <div className="w-full h-1 rounded-full bg-gray-200 overflow-hidden mb-6">
+                        <div
+                            className="h-full transition-all"
+                            style={{
+                                width: `${progress * 100}%`,
+                                backgroundColor: colorMap[state],
+                            }}
+                        />
+                    </div>
+
+                    {/* OK 버튼 */}
+                    <button
+                        onClick={onClose}
+                        className={cn(
+                            "w-44 h-13 rounded-xl text-white font-medium",
+                            "bg-black active:bg-gray-800"
+                        )}
+                    >
+                        OK
+                    </button>
+                </div>
+            )}
+        </div>
+    );
+};
