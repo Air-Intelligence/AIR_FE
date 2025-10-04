@@ -54,7 +54,6 @@ jobs:
           username: ${{ secrets.GCE_USER }}
           key: ${{ secrets.GCE_SSH_KEY }}
           script: |
-            # Navigate to project directory
             cd /home/ubuntu/rowing/react
             docker compose down || true
             docker compose pull
