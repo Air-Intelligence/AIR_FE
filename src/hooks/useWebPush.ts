@@ -10,7 +10,9 @@ export function useWebPush(vapidPublicKey: string) {
 
         const register = async () => {
             try {
-                const registration = await navigator.serviceWorker.register("/serviceWorker.js");
+                const registration = await navigator.serviceWorker.register("/serviceWorker.js", {
+                    scope: "/",
+                });
                 console.log("Service Worker 등록 완료:", registration);
 
                 const permission = await Notification.requestPermission();

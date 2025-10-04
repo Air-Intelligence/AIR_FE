@@ -1,3 +1,11 @@
+self.addEventListener("install", (event) => {
+    self.skipWaiting(); // 새 버전 바로 활성화
+});
+
+self.addEventListener("activate", (event) => {
+    event.waitUntil(self.clients.claim());
+});
+
 self.addEventListener("push", (event) => {
     const data = event.data?.json() || {};
     event.waitUntil(
