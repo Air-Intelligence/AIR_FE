@@ -29,10 +29,12 @@ export const HomePage = () => {
             center: [126.978, 37.5665],
             zoom: 7,
         });
+
+        // mapRef.current.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     }, []);
 
     useEffect(() => {
-        console.log(`위도: ${lat}, 경도: ${lng}`);
+        // console.log(`위도: ${lat}, 경도: ${lng}`);
         if (lat && lng && mapRef.current) {
             // mapRef.current.setCenter([lng, lat]);
 
@@ -58,5 +60,26 @@ export const HomePage = () => {
         return <div>내 위치 정보를 가져올 수 없습니다: {error}</div>;
     }
 
-    return <div ref={mapContainer} style={{ width: "100%", height: "100vh" }} />;
+    return (
+        <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+            <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
+
+            {/* 확대/축소 버튼 */}
+            <div className="flex flex-col absolute right-4 bottom-8 w-16 h-44 rounded-[16px] overflow-hidden">
+                <button
+                    className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"
+                    onClick={() => mapRef.current?.zoomIn()}
+                >
+                    +
+                </button>
+                <div className="h-px bg-yellow-300" />
+                <button
+                    className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"
+                    onClick={() => mapRef.current?.zoomOut()}
+                >
+                    −
+                </button>
+            </div>
+        </div>
+    );
 };
