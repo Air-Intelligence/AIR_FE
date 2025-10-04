@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { pushApi } from "../api/push";
 
 export function useWebPush(vapidPublicKey: string) {
     useEffect(() => {
@@ -9,7 +10,7 @@ export function useWebPush(vapidPublicKey: string) {
 
         const register = async () => {
             try {
-                const registration = await navigator.serviceWorker.register("/sw.js");
+                const registration = await navigator.serviceWorker.register("/serviceWorker.js");
                 console.log("Service Worker 등록 완료:", registration);
 
                 const permission = await Notification.requestPermission();
@@ -23,14 +24,15 @@ export function useWebPush(vapidPublicKey: string) {
                     applicationServerKey: vapidPublicKey,
                 });
 
-                console.log("Push 구독:", subscription);
+                console.log("Push 구독 정보:", JSON.stringify(subscription));
 
-                // TODO: subscription을 서버에 POST
-                await fetch("/api/save-subscription", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(subscription),
-                });
+                // 타입 단언
+                const { endpoint, keys } = subscription.toJSON() as {
+                    endpoint: string;
+                    keys: { p256dh: string; auth: string };
+                };
+
+                await pushApi.saveSubscription({ endpoint, keys });
             } catch (err) {
                 console.error("푸시 초기화 실패:", err);
             }
