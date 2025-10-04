@@ -32,7 +32,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/air-core-dev-be-images:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/air-core-dev-fe-images:latest
           build-args: |
             VITE_PUBLIC_MAPBOX_KEY=${{ env.VITE_PUBLIC_MAPBOX_KEY }}
             VITE_VAPID_PUBLIC_KEY=${{ env.VITE_VAPID_PUBLIC_KEY }}
