@@ -1,45 +1,45 @@
 import { BottomSheet } from "../../components/BottomSheet";
+import Background from "@/assets/WelcomeBackground.png";
+import AirLogo from "../../assets/Loading Logo.svg?react";
 
 export const WelcomePage = () => {
     return (
         <div
-            className="w-full h-screen bg-cover bg-center flex flex-col items-center justify-between"
-            style={{ backgroundImage: "" }}
+            className="relative w-full h-screen flex flex-col items-center justify-between"
+            style={{ backgroundColor: "#FFCF4C" }}
         >
-            <BottomSheet>
-                <h2 className="text-center font-bold text-lg mb-4">Recommended guidelines</h2>
-                <div className="grid grid-cols-2 gap-6 text-center">
-                    <div>
-                        <div className="w-20 h-20 mx-auto rounded-full bg-gray-200" />
-                        <p className="mt-2 text-sm text-gray-600">KF95 (o)</p>
-                    </div>
-                    <div>
-                        <div className="w-20 h-20 mx-auto rounded-full bg-gray-200" />
-                        <p className="mt-2 text-sm text-gray-600">N95 (o)</p>
-                    </div>
-                    <div>
-                        <div className="w-20 h-20 mx-auto rounded-full bg-gray-200" />
-                        <p className="mt-2 text-sm text-gray-600">test</p>
-                    </div>
-                    <div>
-                        <div className="w-20 h-20 mx-auto rounded-full bg-gray-200" />
-                        <p className="mt-2 text-sm text-gray-600">test</p>
-                    </div>
+            {/* 배경 이미지 오버레이 */}
+            <img
+                src={Background}
+                alt="Background"
+                className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {/* 콘텐츠 */}
+            <div className="relative z-10 flex flex-col justify-end h-full px-5 py-11">
+                {/* 상단 로고/타이틀 */}
+                <div className="flex flex-col items-start">
+                    <AirLogo className="w-20 h-20" />
+                    <h1 className="font-normal text-[50px] leading-[157%] tracking-normal text-start">
+                        Breathe
+                    </h1>
+                    <p className="mt-4 font-normal text-start leading-[170%] text-black/80">
+                        We can help your breath in wildfire areas. We can detecting and predicting
+                        air quality in your location. And, we can notice on you. About what can you
+                        do in there. We can help on your "Breathe"
+                    </p>
                 </div>
-            </BottomSheet>
-            <div className="text-3xl font-bold mt-20">Service name</div>
-            <p className="px-6 text-center text-sm">
-                NASA’s Tropospheric Emissions: Monitoring of Pollution (TEMPO) mission is
-                revolutionizing air quality monitoring across North America by enabling better
-                forecasts and reducing pollutant exposure
-            </p>
-            <div className="space-y-4 mb-16 w-3/4">
-                <button className="w-full py-3 rounded-xl bg-black text-white font-bold">
-                    text
-                </button>
-                <button className="w-full py-3 rounded-xl bg-gray-500 text-white font-bold">
-                    text
-                </button>
+
+                {/* 하단 버튼 */}
+                <div className="space-y-4 w-full mt-6">
+                    <button className="w-full h-14 rounded-2xl bg-black text-white font-bold text-lg">
+                        →
+                    </button>
+                    <button className="w-full h-14 rounded-2xl bg-gray-500 text-[14px] font-bold leading-[100%] tracking-[0.03em text-white">
+                        OUT
+                    </button>
+                    <div className="text-center text-sm text-black mt-5">Air Intelligence</div>
+                </div>
             </div>
         </div>
     );

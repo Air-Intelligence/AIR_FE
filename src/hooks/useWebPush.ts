@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+
 import { pushApi } from "../api/push";
+import { userApi } from "../api/user";
 
 export function useWebPush(vapidPublicKey: string) {
     useEffect(() => {
@@ -35,8 +37,20 @@ export function useWebPush(vapidPublicKey: string) {
                 };
 
                 await pushApi.saveSubscription({ endpoint, keys });
-            } catch (err) {
+            } catch (err: any) {
                 console.error("푸시 초기화 실패:", err);
+                if (err.response) {
+                    const data = await err.response.json();
+
+                    // USER_NOT_FOUND인 경우
+                    if (data.errorName === "USER_NOT_FOUND") {
+                        localStorage.removeItem("userId");
+                        const res = await userApi.createUser();
+                        const userId = res.content.userId;
+                        localStorage.setItem("userId", userId);
+                        console.log("신규 유저 생성:", userId);
+                    }
+                }
             }
         };
 
