@@ -23,7 +23,7 @@ export function useWebPush(vapidPublicKey: string) {
                     applicationServerKey: vapidPublicKey,
                 });
 
-                console.log("Push 구독:", subscription);
+                console.log("Push 구독 정보:", JSON.stringify(subscription));
 
                 // TODO: subscription을 서버에 POST
                 await fetch("/api/save-subscription", {
