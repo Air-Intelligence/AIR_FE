@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import polygonSmooth from "@turf/polygon-smooth";
+import { featureCollection } from "@turf/helpers";
+
 import { useMapBounds } from "../hooks/useMapBounds";
 import { weatherApi } from "../api/weather";
 
@@ -22,9 +25,11 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                 });
 
                 // API 응답에서 GeoJSON 꺼내오기
-                const geoJson = data.content;
+                const features = data.content.features.map(
+                    (f: any) => polygonSmooth(f, { iterations: 3 }).features[0]
+                );
+                const geoJson = featureCollection(features);
 
-                console.log(geoJson.features[0].geometry.coordinates);
                 if (map.getSource("weather-polygon")) {
                     (map.getSource("weather-polygon") as mapboxgl.GeoJSONSource).setData(
                         geoJson as any
@@ -40,18 +45,22 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                         type: "fill",
                         source: "weather-polygon",
                         paint: {
-                            "fill-color": "#FF0000",
-                            "fill-opacity": 0.3,
-                        },
-                    });
-
-                    map.addLayer({
-                        id: "weather-polygon-outline",
-                        type: "line",
-                        source: "weather-polygon",
-                        paint: {
-                            "line-color": "#FF0000",
-                            "line-width": 2,
+                            "fill-color": [
+                                "step",
+                                ["get", "value"],
+                                "#ffffff", // 기본값 (0 미만)
+                                20,
+                                "#ffffff", // 0~19
+                                40,
+                                "#ff9999", // 20~39
+                                60,
+                                "#ff5959", // 40~59
+                                80,
+                                "#ff3030", // 60~79
+                                100,
+                                "#ff3030", // 80~100
+                            ],
+                            "fill-opacity": 0.5,
                         },
                     });
                 }
