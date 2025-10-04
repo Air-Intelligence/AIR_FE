@@ -6,6 +6,7 @@ import { PolygonLayer } from "../../components/PolygonLayer";
 import { PointLayer } from "../../components/PointLayer";
 import { WarningButton } from "../../components/WarningButton";
 import { InfoButton } from "../../components/InfoButton";
+import { ZoomControl } from "../../components/ZoomControl";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -129,21 +130,7 @@ export const HomePage = () => {
             <PolygonLayer map={mapRef.current} />
             <PointLayer map={mapRef.current} />
 
-            <div className="flex flex-col absolute right-4 bottom-8 w-16 h-44 rounded-[16px] overflow-hidden">
-                <button
-                    className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"
-                    onClick={() => mapRef.current?.zoomIn()}
-                >
-                    +
-                </button>
-                <div className="h-px bg-yellow-300" />
-                <button
-                    className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"
-                    onClick={() => mapRef.current?.zoomOut()}
-                >
-                    −
-                </button>
-            </div>
+            <ZoomControl map={mapRef.current} />
         </div>
     );
 };

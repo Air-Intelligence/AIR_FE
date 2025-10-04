@@ -25,6 +25,8 @@ body {
 @theme inline {
     --font-baloo: "Baloo 2", cursive;
 
+    --color-custom-pressed: #f7b602;
+
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
