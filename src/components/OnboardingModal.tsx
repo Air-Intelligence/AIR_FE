@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TutorialModal } from "./TutorialModal";
 import SafeIcon from "../assets/SafeIcon.svg?react";
 import ReadyIcon from "../assets/ReadyIcon.svg?react";
 import WarningIcon from "../assets/WarningIcon.svg?react";
 import DangerIcon from "../assets/DangerIcon.svg?react";
 import RunIcon from "../assets/RunIcon.svg?react";
+
+import SurgicalMask from "../assets/SurgicalMask.svg?react";
+import N95 from "../assets/N95.svg?react";
+import KN95 from "../assets/KN95.svg?react";
+import KF95 from "../assets/KF95.svg?react";
+
+import RedX from "../assets/RedX.svg?react";
+import GreenO from "../assets/GreenO.svg?react";
 
 export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
     const [step, setStep] = useState(0);
@@ -21,28 +29,28 @@ export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
         <>
             {step === 0 && (
                 <TutorialModal title="Recommended guidelines" onNext={handleNext}>
-                    <div className="justify-center space-y-4">
-                        <div className="flex items-center gap-12">
+                    <div className="items-center justify-center space-y-3">
+                        <div className="flex items-center justify-center gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#00ff00]"></span>
                             <span>Safe</span>
                             <SafeIcon />
                         </div>
-                        <div className="flex items-center gap-12">
+                        <div className="flex items-center justify-center gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ffff00]"></span>
                             <span>Ready</span>
                             <ReadyIcon />
                         </div>
-                        <div className="flex items-center gap-12">
+                        <div className="flex items-center justify-center gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ff8811]"></span>
                             <span>Watch</span>
                             <WarningIcon />
                         </div>
-                        <div className="flex items-center gap-12">
+                        <div className="flex items-center justify-center gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ff0000]"></span>
                             <span>Warning</span>
                             <DangerIcon />
                         </div>
-                        <div className="flex items-center gap-12">
+                        <div className="flex items-center justify-center gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#000]"></span>
                             <span>Run</span>
                             <RunIcon />
@@ -53,25 +61,32 @@ export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
 
             {step === 1 && (
                 <TutorialModal title="Recommended guidelines" onNext={handleNext}>
-                    <div className="grid grid-cols-2 gap-6 text-center">
-                        <div>
-                            <img
-                                src="/masks/surgical.png"
-                                className="w-20 h-20 mx-auto opacity-40"
-                            />
-                            <p className="mt-2 text-sm text-red-500">Surgical Mask (X)</p>
+                    <div className="grid grid-cols-2 gap-6 text-center overflow-hidden">
+                        <div className="flex flex-col justify-between">
+                            <SurgicalMask />
+                            <div className="flex flex-row items-center justify-center gap-2">
+                                <p className="mt-2 text-sm">Surgical Mask</p> <RedX />
+                            </div>
                         </div>
-                        <div>
-                            <img src="/masks/n95.png" className="w-20 h-20 mx-auto" />
-                            <p className="mt-2 text-sm">N95 (O)</p>
+                        <div className="flex flex-col justify-between">
+                            <N95 />
+                            <div className="flex flex-row items-center justify-center gap-2">
+                                <p className="mt-2 text-sm">N95</p> <GreenO />
+                            </div>
                         </div>
-                        <div>
-                            <img src="/masks/kn95.png" className="w-20 h-20 mx-auto" />
-                            <p className="mt-2 text-sm">KN95 (O)</p>
+                        <div className="flex flex-col justify-between">
+                            <KN95 />
+                            <div className="flex flex-row items-center justify-center gap-2">
+                                <p className="mt-2 text-sm">KN95</p>
+                                <GreenO />
+                            </div>
                         </div>
-                        <div>
-                            <img src="/masks/kf95.png" className="w-20 h-20 mx-auto" />
-                            <p className="mt-2 text-sm">KF95 (O)</p>
+                        <div className="flex flex-col justify-between">
+                            <KF95 />
+                            <div className="flex flex-row items-center justify-center gap-2">
+                                <p className="mt-2 text-sm">KF95</p>
+                                <GreenO />
+                            </div>
                         </div>
                     </div>
                 </TutorialModal>

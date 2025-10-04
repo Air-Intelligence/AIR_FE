@@ -18,11 +18,11 @@ export const TutorialModal = ({ title, children, onNext }: TutorialModalProps) =
         >
             <div
                 className={cn(
-                    "w-91 h-191 bg-white rounded-[30px]",
-                    "shadow-xl flex flex-col justify-between overflow-hidden"
+                    "w-91 h-150 rounded-[36px] bg-[#fff8f0]",
+                    "shadow-xl flex flex-col items-center justify-center overflow-hidden"
                 )}
             >
-                <div className="flex flex-col w-full h-full pt-6 pb-13 items-center">
+                <div className="flex flex-col w-full h-full pt-15 pb-5 px-6 items-center justify-center">
                     <div className="text-center">
                         {title && <h2 className="font-bold text-base text-black">{title}</h2>}
                     </div>
@@ -33,7 +33,7 @@ export const TutorialModal = ({ title, children, onNext }: TutorialModalProps) =
 
                     <button
                         onClick={onNext}
-                        className="w-45 h-16 rounded-xl bg-[#1B1725] flex items-center justify-center text-white"
+                        className="w-full h-14 rounded-xl bg-[#1B1725] flex items-center justify-center text-white"
                     >
                         <RightArrow className="w-5 h-5" />
                     </button>

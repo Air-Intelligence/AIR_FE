@@ -13,6 +13,9 @@ import { OnboardingModal } from "../../components/OnboardingModal";
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
 
+// const lat = 36.7783;
+// const lng = -119.4179;
+
 export const HomePage = () => {
     const mapContainer = useRef<HTMLDivElement>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -41,6 +44,8 @@ export const HomePage = () => {
     useEffect(() => {
         if (mapRef.current) return;
 
+        if (mapRef.current) return;
+
         mapRef.current = new mapboxgl.Map({
             container: mapContainer.current!,
             style: "mapbox://styles/mapbox/streets-v12",
@@ -48,18 +53,6 @@ export const HomePage = () => {
             center: [126.978, 37.5665],
             zoom: 7,
         });
-
-        // const geolocate = new mapboxgl.GeolocateControl({
-        //     positionOptions: {
-        //         enableHighAccuracy: true, // 고정밀도 GPS 사용
-        //     },
-        //     trackUserLocation: true, // 사용자 이동 따라가기
-        //     showUserHeading: true, // 사용자의 기기 방향도 보여줌
-        // });
-        // mapRef.current.addControl(geolocate, "bottom-right")
-
-        // const geolocateEl = geolocate.onAdd(mapRef.current);
-        // document.querySelector("#my-custom-slot")?.appendChild(geolocateEl);
 
         const scale = new mapboxgl.ScaleControl({
             maxWidth: 200, // px 단위 (기본값 100)
@@ -69,43 +62,47 @@ export const HomePage = () => {
 
         setZoomLevel(mapRef.current.getZoom());
 
-        mapRef.current.on("zoom", () => {
-            setZoomLevel(mapRef.current!.getZoom());
-        });
-
-        mapRef.current.on("moveend", () => {
-            setZoomLevel(mapRef.current!.getZoom());
-        });
+        mapRef.current.on("zoom", () => setZoomLevel(mapRef.current!.getZoom()));
+        mapRef.current.on("moveend", () => setZoomLevel(mapRef.current!.getZoom()));
     }, []);
 
     useEffect(() => {
-        if (lat && lng && mapRef.current) {
-            if (!initialized.current) {
-                mapRef.current.setZoom(7);
-                mapRef.current.setCenter([lng, lat]);
-                initialized.current = true;
-            }
+        if (!lat || !lng || !mapRef.current) return;
 
-            if (!markerRef.current) {
-                // 마커 없으면 새로 만들고
-                const el = document.createElement("div");
-                el.style.width = "24px";
-                el.style.height = "24px";
-                el.style.backgroundImage = `url(${MyLocation})`;
-                el.style.backgroundSize = "contain";
-                el.style.backgroundRepeat = "no-repeat";
-                el.style.backgroundPosition = "center";
-                el.style.transform = "translate(-50%, -50%)"; // 중심정렬
-
-                // 🔽 이걸 Marker element로 전달
-                markerRef.current = new mapboxgl.Marker({ element: el })
-                    .setLngLat([lng, lat])
-                    .addTo(mapRef.current);
-            } else {
-                // 있으면 위치만 갱신
-                markerRef.current.setLngLat([lng, lat]);
-            }
+        if (!initialized.current) {
+            mapRef.current.setZoom(7);
+            mapRef.current.setCenter([lng, lat]);
+            initialized.current = true;
         }
+
+        if (!markerRef.current) {
+            // 마커 없으면 새로 만들고
+            const el = document.createElement("div");
+            el.style.width = "24px";
+            el.style.height = "24px";
+            el.style.backgroundImage = `url(${MyLocation})`;
+            el.style.backgroundSize = "contain";
+            el.style.backgroundRepeat = "no-repeat";
+            el.style.backgroundPosition = "center";
+            el.style.transform = "translate(-50%, -50%)"; // 중심정렬
+
+            markerRef.current = new mapboxgl.Marker({ element: el })
+                .setLngLat([lng, lat])
+                .addTo(mapRef.current);
+        } else {
+            // 있으면 위치만 갱신
+            markerRef.current.setLngLat([lng, lat]);
+        }
+
+        const latOffset = 120 / 111; // 위도 1도 = 111km
+        const lngOffset = 120 / (111 * Math.cos((lat * Math.PI) / 180)); // 경도는 위도 따라 달라짐
+        const bounds: mapboxgl.LngLatBoundsLike = [
+            [lng - lngOffset, lat - latOffset], // 남서쪽
+            [lng + lngOffset, lat + latOffset], // 북동쪽
+        ];
+
+        mapRef.current.setMaxBounds(bounds);
+        (mapRef.current as any).setMaxBoundsViscosity?.(0.7);
     }, [lat, lng]);
 
     const handleGoToMyLocation = () => {
