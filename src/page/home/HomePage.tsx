@@ -39,6 +39,12 @@ export const HomePage = () => {
             zoom: 7,
         });
 
+        const scale = new mapboxgl.ScaleControl({
+            maxWidth: 200, // px 단위 (기본값 100)
+            unit: "metric", // 'imperial' (mile/feet) 도 가능
+        });
+        mapRef.current.addControl(scale, "bottom-left");
+
         setZoomLevel(mapRef.current.getZoom());
 
         mapRef.current.on("zoom", () => {
