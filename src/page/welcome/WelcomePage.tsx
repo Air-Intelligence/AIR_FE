@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import Background from "@/assets/WelcomeBackground.png";
-import AirLogo from "../../assets/Loading Logo.svg?react";
+import AirLogo from "../../assets/AirLogo.svg?react";
 import RightArrow from "../../assets/RightArrow.svg?react";
 
 export const WelcomePage = () => {
@@ -20,14 +20,14 @@ export const WelcomePage = () => {
             />
 
             {/* 콘텐츠 */}
-            <div className="relative z-10 flex flex-col justify-end h-full px-5 py-11">
+            <div className="relative z-10 flex flex-col justify-end h-full px-6 py-11">
                 {/* 상단 로고/타이틀 */}
                 <div className="flex flex-col items-start">
                     <AirLogo className="w-20 h-20" />
-                    <h1 className="font-normal text-[50px] leading-[157%] tracking-normal text-start">
+                    <h1 className="font-baloo font-normal text-[50px] leading-[157%] tracking-normal text-start">
                         Breathe
                     </h1>
-                    <p className="mt-4 font-normal text-start leading-[170%] text-black/80">
+                    <p className="mt-4 text-start font-normal leading-[170%] text-black/80">
                         We can help your breath in wildfire areas. We can detecting and predicting
                         air quality in your location. And, we can notice on you. About what can you
                         do in there. We can help on your "Breathe"

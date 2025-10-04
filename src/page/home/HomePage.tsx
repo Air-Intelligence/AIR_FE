@@ -1,7 +1,8 @@
-import { useEffect, useRef, useMemo } from "react";
+import { useEffect, useRef, useMemo, useState } from "react";
 import mapboxgl from "mapbox-gl";
 
 import { useGeolocation } from "../../hooks/useGeolocation";
+import { WarningModal } from "../../components/WarningModal";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -14,6 +15,8 @@ export const HomePage = () => {
     const markerRef = useRef<mapboxgl.Marker | null>(null);
 
     const initialized = useRef(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     /** 임시로 100000s 로 바꿈 */
     const { lat, lng, error } = useGeolocation(
@@ -65,8 +68,13 @@ export const HomePage = () => {
     return (
         <div style={{ width: "100%", height: "100vh", position: "relative" }}>
             <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />
-
             {/* 확대/축소 버튼 */}
+            <div className="flex flex-col absolute top-30 left-10 w-16 h-44 overflow-hidden">
+                <button onClick={() => setIsModalOpen(true)} className="bg-black text-white py-2">
+                    버어튼
+                </button>
+            </div>
+
             <div className="flex flex-col absolute right-4 bottom-8 w-16 h-44 rounded-[16px] overflow-hidden">
                 <button
                     className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"
@@ -82,6 +90,13 @@ export const HomePage = () => {
                     −
                 </button>
             </div>
+
+            {isModalOpen && (
+                <WarningModal onClose={() => setIsModalOpen(false)} barColor="#FF9800">
+                    <h2 className="font-bold text-lg">Waring</h2>
+                    <p className="text-gray-400 text-sm">Text</p>
+                </WarningModal>
+            )}
         </div>
     );
 };
