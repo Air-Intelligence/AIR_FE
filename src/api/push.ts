@@ -10,6 +10,6 @@ interface PushSubscriptionDTO {
 
 export const pushApi = {
     saveSubscription: async (subscription: PushSubscriptionDTO) => {
-        return api.post("push/subscription", { json: subscription }).json();
+        return api.post("notifications/subscribe", { json: subscription }).json();
     },
 };

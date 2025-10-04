@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "../../page/home/HomePage";
-import { TestPage } from "../../page/test/TestPage";
+import { WelcomePage } from "../../page/welcome/WelcomePage";
 import App from "../App";
 
 export const AppRouter = () => {
@@ -14,8 +14,8 @@ export const AppRouter = () => {
                     element: <HomePage />,
                 },
                 {
-                    path: "test",
-                    element: <TestPage />,
+                    path: "welcome",
+                    element: <WelcomePage />,
                 },
             ],
         },
