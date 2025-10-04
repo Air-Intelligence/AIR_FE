@@ -4,6 +4,7 @@ import mapboxgl from "mapbox-gl";
 import { useGeolocation } from "../../hooks/useGeolocation";
 import { WarningModal } from "../../components/WarningModal";
 import { useMapBounds } from "../../hooks/useMapBounds";
+import { PolygonLayer } from "../../components/PolygonLayer";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -18,10 +19,12 @@ export const HomePage = () => {
     const initialized = useRef(false);
 
     // 지도의 우측 하단, 좌측 상단 lat, lng 반환
-    const bounds = useMapBounds(mapRef.current);
-    console.log(
-        `좌측하단: ${bounds?.southWest.lat}, ${bounds?.southWest.lng} \n 우측상단: ${bounds?.northEast.lat}, ${bounds?.northEast.lng}`
-    );
+    // const bounds = useMapBounds(mapRef.current);
+
+    // console.log(
+    //     `좌측하단: ${bounds?.southWest.lat}, ${bounds?.southWest.lng} \n 우측상단: ${bounds?.northEast.lat}, ${bounds?.northEast.lng}`
+    // );
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     /** 임시로 100000s 로 바꿈 */
@@ -80,7 +83,7 @@ export const HomePage = () => {
                     버어튼
                 </button>
             </div>
-
+            <PolygonLayer map={mapRef.current} />
             <div className="flex flex-col absolute right-4 bottom-8 w-16 h-44 rounded-[16px] overflow-hidden">
                 <button
                     className="flex-1 bg-[#FFCE48] text-black text-2xl font-bold flex items-center justify-center"
