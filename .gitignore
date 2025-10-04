@@ -44,3 +44,4 @@ out/
 .eslintcache
 .stylelintcache
 .next/cache/
+.vercel

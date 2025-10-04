@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 
+/**
+ * 본인의 위치정보를 가져오는 훅입니다.
+ * @intervalMs 를 통해 인터벌 설정 가능
+ */
 interface GeolocationProps {
     lat: number | null;
     lng: number | null;
     error: string | null;
 }
 
-export const useGeolocation = (intervalMs: number = 10000, options?: PositionOptions) => {
+export const useGeolocation = (intervalMs: number = 1000, options?: PositionOptions) => {
     const [location, setLocation] = useState<GeolocationProps>(() => {
         // 초기 상태를 localStorage에서 복원
         const saved = localStorage.getItem("userLocation");
