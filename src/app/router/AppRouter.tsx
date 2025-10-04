@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { HomePage } from "../../page/home/HomePage";
 import { WelcomePage } from "../../page/welcome/WelcomePage";
 import App from "../App";
+import { RootGate } from "../RootGate";
 
 export const AppRouter = () => {
     const router = createBrowserRouter([
@@ -10,8 +11,8 @@ export const AppRouter = () => {
             element: <App />,
             children: [
                 {
-                    path: "",
-                    element: <HomePage />,
+                    element: <RootGate />,
+                    children: [{ path: "", element: <HomePage /> }],
                 },
                 {
                     path: "welcome",

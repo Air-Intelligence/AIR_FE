@@ -1,8 +1,12 @@
-import { BottomSheet } from "../../components/BottomSheet";
+import { useNavigate } from "react-router-dom";
+
 import Background from "@/assets/WelcomeBackground.png";
 import AirLogo from "../../assets/Loading Logo.svg?react";
+import RightArrow from "../../assets/RightArrow.svg?react";
 
 export const WelcomePage = () => {
+    const navigate = useNavigate();
+
     return (
         <div
             className="relative w-full h-screen flex flex-col items-center justify-between"
@@ -32,8 +36,11 @@ export const WelcomePage = () => {
 
                 {/* 하단 버튼 */}
                 <div className="space-y-4 w-full mt-6">
-                    <button className="w-full h-14 rounded-2xl bg-black text-white font-bold text-lg">
-                        →
+                    <button
+                        className="flex w-full h-14 rounded-2xl bg-black items-center justify-center"
+                        onClick={() => navigate("/")}
+                    >
+                        <RightArrow />
                     </button>
                     <button className="w-full h-14 rounded-2xl bg-gray-500 text-[14px] font-bold leading-[100%] tracking-[0.03em text-white">
                         OUT
