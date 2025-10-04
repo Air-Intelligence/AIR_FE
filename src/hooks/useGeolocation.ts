@@ -45,6 +45,7 @@ export const useGeolocation = (intervalMs: number = 1000, options?: PositionOpti
                                 lng: newLocation.lng,
                             });
                         }
+                        console.log("좌표업뎃")
                     } catch (e) {
                         console.error("좌표 업데이트 실패:", e);
                     }
