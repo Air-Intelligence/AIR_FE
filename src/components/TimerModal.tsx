@@ -5,6 +5,7 @@ import ReadyIcon from "../assets/ReadyIcon.svg?react";
 import WarningIcon from "../assets/WarningIcon.svg?react";
 import DangerIcon from "../assets/DangerIcon.svg?react";
 import RunIcon from "../assets/RunIcon.svg?react";
+import SleepingFace from "../assets/sleeping-face.svg?react";
 
 type TimerState = "ready" | "warning" | "danger" | "run" | "done";
 
@@ -72,7 +73,7 @@ export const TimerModal = ({
                     className="bg-white rounded-3xl w-[320px] p-6 flex flex-col items-center shadow-xl"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    끝
+                    <SleepingFace className="w-40 h-40 mb-3" />
                     {/* OK 버튼 */}
                     <button
                         onClick={onClose}

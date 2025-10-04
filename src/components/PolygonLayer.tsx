@@ -48,19 +48,17 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                             "fill-color": [
                                 "step",
                                 ["get", "value"],
-                                "#ffffff", // 기본값 (0 미만)
+                                "rgba(255,255,255,0)",
                                 20,
-                                "#ffffff", // 0~19
+                                "#ffff00", // 20~39
                                 40,
-                                "#ff9999", // 20~39
+                                "#ff8811", // 40~59
                                 60,
-                                "#ff5959", // 40~59
+                                "#ff0000", // 60~79
                                 80,
-                                "#ff3030", // 60~79
-                                100,
-                                "#ff3030", // 80~100
+                                "#1f1f1f", // 80~100
                             ],
-                            "fill-opacity": 0.5,
+                            "fill-opacity": ["case", ["<", ["get", "value"], 20], 0, 0.5],
                         },
                     });
                 }
