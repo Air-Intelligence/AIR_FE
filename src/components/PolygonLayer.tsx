@@ -58,7 +58,7 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                                 80,
                                 "#1f1f1f", // 80~100
                             ],
-                            "fill-opacity": ["case", ["<", ["get", "value"], 20], 0, 0.5],
+                            "fill-opacity": ["case", ["<", ["get", "value"], 20], 0, 0.2],
                         },
                     });
                 }
