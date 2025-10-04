@@ -24,46 +24,48 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                     upperLon: bounds.northEast.lng,
                 });
 
-                // API 응답에서 GeoJSON 꺼내오기
                 const features = data.content.features.map(
                     (f: any) => polygonSmooth(f, { iterations: 3 }).features[0]
                 );
-                const geoJson = featureCollection(features);
 
-                if (map.getSource("weather-polygon")) {
-                    (map.getSource("weather-polygon") as mapboxgl.GeoJSONSource).setData(
-                        geoJson as any
+                // value 구간 정의
+                const ranges = [
+                    { id: "80-100", min: 80, max: 100, color: "#ff3030" },
+                    { id: "60-79", min: 60, max: 79, color: "#ff5959" },
+                    { id: "40-59", min: 40, max: 59, color: "#ff9999" },
+                    { id: "20-39", min: 20, max: 39, color: "#ffb0b0" },
+                    { id: "0-19", min: 0, max: 19, color: "#ffffff" },
+                ];
+
+                // value 구간별 source/layer 생성
+                ranges.forEach((r) => {
+                    const filtered = featureCollection(
+                        features.filter(
+                            (f: any) => f.properties.value >= r.min && f.properties.value <= r.max
+                        )
                     );
-                } else {
-                    map.addSource("weather-polygon", {
-                        type: "geojson",
-                        data: geoJson as any,
-                    });
 
-                    map.addLayer({
-                        id: "weather-polygon-fill",
-                        type: "fill",
-                        source: "weather-polygon",
-                        paint: {
-                            "fill-color": [
-                                "step",
-                                ["get", "value"],
-                                "#ffffff", // 기본값 (0 미만)
-                                20,
-                                "#ffffff", // 0~19
-                                40,
-                                "#ff9999", // 20~39
-                                60,
-                                "#ff5959", // 40~59
-                                80,
-                                "#ff3030", // 60~79
-                                100,
-                                "#ff3030", // 80~100
-                            ],
-                            "fill-opacity": 0.5,
-                        },
-                    });
-                }
+                    const sourceId = `weather-polygon-${r.id}`;
+                    const layerId = `weather-polygon-fill-${r.id}`;
+
+                    // 기존 source 갱신 or 새로 생성
+                    if (map.getSource(sourceId)) {
+                        (map.getSource(sourceId) as mapboxgl.GeoJSONSource).setData(
+                            filtered as any
+                        );
+                    } else {
+                        map.addSource(sourceId, { type: "geojson", data: filtered });
+                        map.addLayer({
+                            id: layerId,
+                            type: "fill",
+                            source: sourceId,
+                            paint: {
+                                "fill-color": r.color,
+                                "fill-opacity": 0.5,
+                            },
+                        });
+                    }
+                });
             } catch (err) {
                 console.error("Polygon API 호출 실패:", err);
             }

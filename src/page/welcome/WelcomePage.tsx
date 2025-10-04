@@ -12,15 +12,6 @@ export const WelcomePage = () => {
             className="relative w-full h-screen flex flex-col items-center justify-between"
             style={{ backgroundColor: "#FFCF4C" }}
         >
-            {/* <TutorialModal title="Recommended guidelines" onNext={() => console.log("Next!")}>
-                <div className="text-center space-y-4">
-                    <p className="text-gray-700">
-                        이 영역에는 자유롭게 컨텐츠(children)를 넣을 수 있어요.
-                    </p>
-                    <p className="text-gray-500 text-sm">예: 이미지, 설명 텍스트, 카드 UI 등</p>
-                </div>
-            </TutorialModal> */}
-            {/* 배경 이미지 오버레이 */}
             <img
                 src={Background}
                 alt="Background"
@@ -49,9 +40,6 @@ export const WelcomePage = () => {
                         onClick={() => navigate("/")}
                     >
                         <RightArrow />
-                    </button>
-                    <button className="w-full h-14 rounded-2xl bg-gray-500 text-[14px] font-bold leading-[100%] tracking-[0.03em text-white">
-                        OUT
                     </button>
                     <div className="text-center text-sm text-black mt-5">Air Intelligence</div>
                 </div>

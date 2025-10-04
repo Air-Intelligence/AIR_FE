@@ -11,6 +11,11 @@ import N95 from "../assets/N95.svg?react";
 import KN95 from "../assets/KN95.svg?react";
 import KF95 from "../assets/KF95.svg?react";
 
+import MaskFirst from "../assets/MaskFirst.svg?react";
+import MaskSecond from "../assets/MaskSecond.svg?react";
+import MaskThird from "../assets/MaskThird.svg?react";
+import MaskFour from "../assets/MaskFour.svg?react";
+
 import RedX from "../assets/RedX.svg?react";
 import GreenO from "../assets/GreenO.svg?react";
 
@@ -93,14 +98,32 @@ export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
             )}
 
             {step === 2 && (
-                <TutorialModal title="Welcome" onNext={handleNext}>
-                    <div className="text-center space-y-4">
-                        <p className="text-gray-700">
-                            위치 기반으로 공기질을 감지하고 위험도를 알려드립니다.
-                        </p>
-                        <p className="text-gray-500 text-sm">
-                            알림을 활성화하면 실시간으로 안전 가이드를 받아볼 수 있습니다.
-                        </p>
+                <TutorialModal title="Recommended guidelines" onNext={handleNext}>
+                    <div className="grid grid-cols-2 gap-6 text-center overflow-hidden">
+                        <div className="flex flex-col justify-between">
+                            <MaskFirst />
+                            <div className="flex flex-row items-center justify-center mt-2">
+                                <RedX />
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-between">
+                            <MaskSecond />
+                            <div className="flex flex-row items-center justify-center">
+                                <GreenO />
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-between">
+                            <MaskThird />
+                            <div className="flex flex-row items-center justify-center mt-2">
+                                <GreenO />
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-between">
+                            <MaskFour />
+                            <div className="flex flex-row items-center justify-center">
+                                <GreenO />
+                            </div>
+                        </div>
                     </div>
                 </TutorialModal>
             )}
