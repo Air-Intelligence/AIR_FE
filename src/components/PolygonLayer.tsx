@@ -46,19 +46,21 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                         source: "weather-polygon",
                         paint: {
                             "fill-color": [
-                                "step",
+                                "match",
                                 ["get", "value"],
-                                "rgba(255,255,255,0)",
-                                20,
-                                "#ffff00", // 20~39
-                                40,
-                                "#ff8811", // 40~59
-                                60,
-                                "#ff0000", // 60~79
-                                80,
-                                "#1f1f1f", // 80~100
+                                "SAFE",
+                                "#03ff00",
+                                "READY",
+                                "#ffff00",
+                                "WARNING",
+                                "#ff7f00",
+                                "DANGER",
+                                "#ff0000",
+                                "RUN",
+                                "#000000",
+                                /* default */ "#ffffff",
                             ],
-                            "fill-opacity": ["case", ["<", ["get", "value"], 20], 0, 0.2],
+                            "fill-opacity": 0.3,
                         },
                     });
                 }

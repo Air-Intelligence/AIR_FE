@@ -43,7 +43,6 @@ const STATUS_CONFIG = {
 };
 
 export const WarningButton = ({ warningLevel }: WarningButtonProps) => {
-    console.log(warningLevel);
     const [isOpen, setIsOpen] = useState(false);
     const prevLevel = useRef<WarningLevel>("SAFE");
 
