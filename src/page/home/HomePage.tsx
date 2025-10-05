@@ -121,7 +121,7 @@ export const HomePage = () => {
 
     /** PolygonLayer visibility 제어 */
     useEffect(() => {
-        const polygonVisible = zoomLevel > 7;
+        const polygonVisible = zoomLevel > 8;
         if (!mapRef.current) return;
         const fillId = "weather-polygon-fill";
         const lineId = "weather-polygon-outline";
@@ -144,7 +144,7 @@ export const HomePage = () => {
 
     /**  PointLayer visibility 제어 */
     useEffect(() => {
-        const pointVisible = zoomLevel <= 7;
+        const pointVisible = zoomLevel <= 8;
         if (!mapRef.current) return;
         const circleId = "weather-points-circle";
         const labelId = "weather-points-label";
