@@ -40,10 +40,10 @@ export const HomePage = () => {
     }, []);
 
     /** 임시로 100000s 로 바꿈 */
-    // const { lat, lng, error } = useGeolocation(
-    //     5000,
-    //     useMemo(() => ({ enableHighAccuracy: true }), [])
-    // );
+    const { lat, lng, error } = useGeolocation(
+        5000,
+        useMemo(() => ({ enableHighAccuracy: true }), [])
+    );
 
     useEffect(() => {
         if (mapRef.current) return;
