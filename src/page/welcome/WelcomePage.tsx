@@ -19,7 +19,7 @@ export const WelcomePage = () => {
             />
 
             {/* 콘텐츠 */}
-            <div className="relative z-10 flex flex-col justify-end h-full px-6 py-11">
+            <div className="relative z-10 flex flex-col justify-end h-full px-6 py-11" style={{height: "100dvh"}}>
                 {/* 상단 로고/타이틀 */}
                 <div className="flex flex-col items-start">
                     <AirLogo className="w-20 h-20" />
