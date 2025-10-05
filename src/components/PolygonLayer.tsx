@@ -67,7 +67,7 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
             }
         };
 
-        // fetchData();
+        fetchData();
 
         // 5초마다 실행
         const intervalId = setInterval(fetchData, 5000);

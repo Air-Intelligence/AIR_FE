@@ -21,7 +21,18 @@ export const PointLayer = ({ map }: PointLayerProps) => {
                     upperLon: bounds.northEast.lng,
                 });
 
-                const geoJson = data.content;
+                const roundedFeatures = data.content.features.map((f: any) => ({
+                    ...f,
+                    properties: {
+                        ...f.properties,
+                        label: Number(f.properties.value).toFixed(2), // 소수 둘째 자리 반올림 문자열
+                    },
+                }));
+
+                const geoJson = {
+                    ...data.content,
+                    features: roundedFeatures,
+                };
 
                 if (map.getSource("weather-points")) {
                     (map.getSource("weather-points") as mapboxgl.GeoJSONSource).setData(
@@ -33,33 +44,43 @@ export const PointLayer = ({ map }: PointLayerProps) => {
                         data: geoJson as any,
                     });
 
-                    // ✅ 포인트 원(circle)으로 표시
                     map.addLayer({
                         id: "weather-points-circle",
                         type: "circle",
                         source: "weather-points",
                         paint: {
                             "circle-radius": 8,
-                            "circle-color": "#1E3A8A", // 파란색
+                            "circle-color": [
+                                "step",
+                                ["get", "value"], // 기준값
+                                "#7fff00", // 0~19 : 하늘색
+                                20,
+                                "#ffff00", // 20~39 : 연두
+                                40,
+                                "#ff8811", // 40~59 : 노랑
+                                60,
+                                "#ff0000", // 60~79 : 주황
+                                80,
+                                "#1f1f1f", // 80 이상 : 빨강
+                            ],
                             "circle-stroke-width": 2,
                             "circle-stroke-color": "#ffffff",
                         },
                     });
 
-                    // ✅ 값(label) 표시
                     map.addLayer({
                         id: "weather-points-label",
                         type: "symbol",
                         source: "weather-points",
                         layout: {
-                            "text-field": ["get", "value"],
+                            "text-field": ["get", "label"], // label 속성 사용
                             "text-size": 12,
-                            "text-offset": [0, 1.2],
-                            "text-anchor": "top",
+                            "text-offset": [0, 0],
+                            "text-anchor": "center",
                         },
                         paint: {
-                            "text-color": "#000000",
-                            "text-halo-color": "#ffffff",
+                            "text-color": "#ffffff",
+                            "text-halo-color": "#000000",
                             "text-halo-width": 1,
                         },
                     });
@@ -69,7 +90,7 @@ export const PointLayer = ({ map }: PointLayerProps) => {
             }
         };
 
-        // fetchData();
+        fetchData();
 
         const intervalId = setInterval(fetchData, 5000);
 

@@ -43,7 +43,7 @@ export const weatherApi = {
         upperLon: number;
     }): Promise<WeatherPolygonResponse> => {
         const { lowerLat, lowerLon, upperLat, upperLon } = params;
-
+        
         return await api
             .get("weathers/polygon", {
                 searchParams: {
