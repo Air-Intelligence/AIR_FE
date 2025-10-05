@@ -196,10 +196,10 @@ export const HomePage = () => {
             <ZoomControl map={mapRef.current} />
 
             <button
-                className="absolute bottom-55 right-4 w-12 h-12 rounded-xl bg-[#FFCE48] active:bg-custom-pressed text-white flex items-center justify-center text-xl"
+                className="absolute bottom-55 right-4 w-16 h-16 rounded-xl bg-[#FFCE48] active:bg-custom-pressed text-white flex items-center justify-center text-xl"
                 onClick={handleGoToMyLocation}
             >
-                <LocateFixed className="w-6 h-6 text-black" />
+                <LocateFixed className="w-8 h-8 text-black" />
             </button>
         </div>
     );

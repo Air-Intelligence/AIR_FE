@@ -35,27 +35,27 @@ export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
             {step === 0 && (
                 <TutorialModal title="Recommended guidelines" onNext={handleNext}>
                     <div className="items-center justify-center space-y-3">
-                        <div className="flex items-center justify-center gap-12">
+                        <div className="flex items-center justify-between gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#00ff00]"></span>
                             <span>Safe</span>
                             <SafeIcon />
                         </div>
-                        <div className="flex items-center justify-center gap-12">
+                        <div className="flex items-center justify-between gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ffff00]"></span>
                             <span>Ready</span>
                             <ReadyIcon />
                         </div>
-                        <div className="flex items-center justify-center gap-12">
+                        <div className="flex items-center justify-between gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ff8811]"></span>
                             <span>Watch</span>
                             <WarningIcon />
                         </div>
-                        <div className="flex items-center justify-center gap-12">
+                        <div className="flex items-center justify-between gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ff0000]"></span>
                             <span>Warning</span>
                             <DangerIcon />
                         </div>
-                        <div className="flex items-center justify-center gap-12">
+                        <div className="flex items-center justify-between gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#000]"></span>
                             <span>Run</span>
                             <RunIcon />
