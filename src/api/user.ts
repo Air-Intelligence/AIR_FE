@@ -4,7 +4,14 @@ const userId = localStorage.getItem("userId");
 
 export interface UserResponse {
     statusCode: number;
-    content: unknown;
+    content: {
+        userId: string;
+        coord: {
+            lat: number;
+            lon: number;
+        };
+        warningLevel: "SAFE" | "READY" | "WARNING" | "DANGER" | "RUN";
+    };
     timestamp: string;
 }
 

@@ -10,6 +10,7 @@ import { InfoButton } from "../../components/InfoButton";
 import { ZoomControl } from "../../components/ZoomControl";
 import { OnboardingModal } from "../../components/OnboardingModal";
 import { TimerTrigger } from "../../components/TimerTrigger";
+import { useWarningLevel } from "../../context/warningLevelContext";
 
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
@@ -27,6 +28,8 @@ export const HomePage = () => {
     const [zoomLevel, setZoomLevel] = useState<number>(7);
     const [showOnboarding, setShowOnboarding] = useState<boolean>(true);
 
+    const { warningLevel } = useWarningLevel();
+    
     useEffect(() => {
         const hasSeenOnboarding = localStorage.getItem("hasSeenOnboarding");
         if (!hasSeenOnboarding) {
@@ -38,7 +41,7 @@ export const HomePage = () => {
 
     /** 임시로 100000s 로 바꿈 */
     const { lat, lng, error } = useGeolocation(
-        100000,
+        5000,
         useMemo(() => ({ enableHighAccuracy: true }), [])
     );
 
@@ -177,7 +180,7 @@ export const HomePage = () => {
                     }}
                 />
             )}
-            <WarningButton />
+            <WarningButton warningLevel={warningLevel ?? "SAFE"} />
 
             <TimerTrigger hour={0.02} />
 
