@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import WarningTriangle from "../assets/warningTriangle.svg?react";
 
 interface ModalProps {
     children: ReactNode;
@@ -21,8 +20,7 @@ export const WarningModal = ({ children, onClose, barColor = "#f97316" }: ModalP
                 <div className="h-13" style={{ backgroundColor: barColor }} />
 
                 {/* 콘텐츠 영역 */}
-                <div className="flex flex-col items-center px-6 mt-3 space-y-4">
-                    <WarningTriangle />
+                <div className="flex flex-col items-center px-6 mt-4 space-y-4">
                     {children}
                 </div>
 
