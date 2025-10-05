@@ -68,7 +68,7 @@ export const PointLayer = ({ map }: PointLayerProps) => {
                                 ["linear"],
                                 ["zoom"],
                                 5,
-                                0.8,
+                                0.6,
                                 10,
                                 0.6,
                             ],

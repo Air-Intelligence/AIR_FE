@@ -113,7 +113,7 @@ export const HomePage = () => {
         if (lat && lng && mapRef.current) {
             mapRef.current.flyTo({
                 center: [lng, lat],
-                zoom: 12, // 넣을까 뺄까
+                zoom: 9, // 넣을까 뺄까
                 essential: true,
             });
         }
