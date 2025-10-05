@@ -32,8 +32,10 @@ export const userApi = {
         const payload = {
             userId: userId,
             coord: {
-                lat: body.lat,
-                lon: body.lng,
+                // lat: body.lat,
+                // lon: body.lng,
+                lat: 37.42123288185227,
+                lon: -122.06577531931865,
             },
         };
 

@@ -15,8 +15,8 @@ import { useWarningLevel } from "../../context/warningLevelContext";
 mapboxgl.accessToken =
     "pk.eyJ1Ijoia2lteW9uZ2hlZSIsImEiOiJjbWdhYXIydHowMnQ5MnJwcXE1c2xocGlkIn0.WGfrPNNfolUzbsu1u6QZ_w";
 
-// const lat = 36.7783;
-// const lng = -119.4179;
+const lat = 37.42123288185227;
+const lng = -122.06577531931865;
 
 export const HomePage = () => {
     const mapContainer = useRef<HTMLDivElement>(null);
@@ -40,10 +40,10 @@ export const HomePage = () => {
     }, []);
 
     /** 임시로 100000s 로 바꿈 */
-    const { lat, lng, error } = useGeolocation(
-        5000,
-        useMemo(() => ({ enableHighAccuracy: true }), [])
-    );
+    // const { lat, lng, error } = useGeolocation(
+    //     5000,
+    //     useMemo(() => ({ enableHighAccuracy: true }), [])
+    // );
 
     useEffect(() => {
         if (mapRef.current) return;
@@ -121,7 +121,7 @@ export const HomePage = () => {
 
     /** PolygonLayer visibility 제어 */
     useEffect(() => {
-        const polygonVisible = zoomLevel > 8;
+        const polygonVisible = zoomLevel > 7;
         if (!mapRef.current) return;
         const fillId = "weather-polygon-fill";
         const lineId = "weather-polygon-outline";
@@ -144,7 +144,7 @@ export const HomePage = () => {
 
     /**  PointLayer visibility 제어 */
     useEffect(() => {
-        const pointVisible = zoomLevel <= 8;
+        const pointVisible = zoomLevel <= 7;
         if (!mapRef.current) return;
         const circleId = "weather-points-circle";
         const labelId = "weather-points-label";
@@ -165,10 +165,11 @@ export const HomePage = () => {
         }
     }, [zoomLevel]);
 
-    if (error) {
-        return <div>내 위치 정보를 가져올 수 없습니다: {error}</div>;
-    }
+    // if (error) {
+    //     return <div>내 위치 정보를 가져올 수 없습니다: {error}</div>;
+    // }
 
+    
     return (
         <div style={{ width: "100%", height: "100dvh", position: "relative" }}>
             <div ref={mapContainer} style={{ width: "100%", height: "100%" }} />

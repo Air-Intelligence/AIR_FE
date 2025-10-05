@@ -42,7 +42,7 @@ export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
                         </div>
                         <div className="flex items-center justify-between gap-12">
                             <span className="w-15 h-15 rounded-full bg-[#ffff00]"></span>
-                            <span>Ready</span>
+                            <span>Mask Ready</span>
                             <ReadyIcon />
                         </div>
                         <div className="flex items-center justify-between gap-12">

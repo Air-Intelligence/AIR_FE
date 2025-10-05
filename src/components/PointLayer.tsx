@@ -49,7 +49,7 @@ export const PointLayer = ({ map }: PointLayerProps) => {
                         type: "circle",
                         source: "weather-points",
                         paint: {
-                            "circle-radius": 8,
+                            "circle-radius": 30,
                             "circle-color": [
                                 "step",
                                 ["get", "value"], // 기준값
@@ -63,7 +63,17 @@ export const PointLayer = ({ map }: PointLayerProps) => {
                                 80,
                                 "#1f1f1f", // 80 이상 : 빨강
                             ],
-                            "circle-stroke-width": 2,
+                            "circle-opacity": [
+                                "interpolate",
+                                ["linear"],
+                                ["zoom"],
+                                5,
+                                0.8,
+                                10,
+                                0.6,
+                            ],
+                            "circle-blur": 0.7,
+                            "circle-stroke-width": 1,
                             "circle-stroke-color": "#ffffff",
                         },
                     });

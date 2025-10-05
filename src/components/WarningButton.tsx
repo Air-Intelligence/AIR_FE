@@ -22,7 +22,7 @@ const STATUS_CONFIG = {
     },
     READY: {
         color: "#ffff00",
-        label: "Ready",
+        label: "Mask Ready",
         Icon: ReadyIcon,
     },
     WARNING: {

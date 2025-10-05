@@ -44,6 +44,7 @@ export const PolygonLayer = ({ map }: PolygonLayerProps) => {
                         id: "weather-polygon-fill",
                         type: "fill",
                         source: "weather-polygon",
+                        layout: { visibility: "none" },
                         paint: {
                             "fill-color": [
                                 "match",
