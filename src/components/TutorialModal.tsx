@@ -8,7 +8,7 @@ interface TutorialModalProps {
     onNext: () => void;
 }
 
-export const TutorialModal = ({ title, children, onNext }: TutorialModalProps) => {
+export const  TutorialModal = ({ title, children, onNext }: TutorialModalProps) => {
     return (
         <div
             className={cn(
@@ -22,7 +22,7 @@ export const TutorialModal = ({ title, children, onNext }: TutorialModalProps) =
                     "shadow-xl flex flex-col items-center justify-center overflow-hidden"
                 )}
             >
-                <div className="flex flex-col w-full h-full pt-15 pb-5 items-center justify-center">
+                <div className="flex flex-col w-full h-full pt-10 pb-5 items-center justify-center">
                     <div className="text-center">
                         {title && (
                             <h2 className="font-semibold leading-none tracking-[-0.01em] text-center text-black">
