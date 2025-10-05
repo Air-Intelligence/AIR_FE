@@ -72,10 +72,12 @@ export const TimerModal = ({
         >
             {timerState === "done" ? (
                 <div
-                    className="bg-white rounded-3xl w-[320px] p-6 flex flex-col items-center shadow-xl"
+                    className="rounded-3xl w-[320px] h-[320px] p-6 flex flex-col items-center shadow-xl bg-[#fff8f0]"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    <SleepingFace className="w-40 h-40 mb-3" />
+                    <div className="flex h-full justify-center items-center">
+                        <SleepingFace className="w-17 h-17 mb-3" />
+                    </div>
                     {/* OK 버튼 */}
                     <button
                         onClick={onClose}
@@ -89,7 +91,7 @@ export const TimerModal = ({
                 </div>
             ) : (
                 <div
-                    className="bg-white rounded-3xl w-[320px] p-6 flex flex-col items-center shadow-xl"
+                    className="bg-[#fff8f0] rounded-3xl w-[320px] h-[320px] p-6 flex flex-col items-center shadow-xl"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Icon */}
