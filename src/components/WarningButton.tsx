@@ -1,5 +1,4 @@
-// components/WarningButton.tsx
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import WarningBell from "../assets/warningBell.svg?react";
 import { WarningModal } from "./WarningModal";
 
@@ -35,9 +34,17 @@ const STATUS_CONFIG = {
 export const WarningButton = ({ warningLevel }: WarningButtonProps) => {
     console.log(warningLevel);
     const [isOpen, setIsOpen] = useState(false);
+    const prevLevel = useRef<WarningLevel>("SAFE");
 
     const config = STATUS_CONFIG[warningLevel as keyof typeof STATUS_CONFIG];
 
+    useEffect(() => {
+        if (prevLevel.current === "SAFE" && warningLevel !== "SAFE") {
+            setIsOpen(true);
+        }
+
+        prevLevel.current = warningLevel;
+    }, [warningLevel]);
     return (
         <>
             <div className="flex flex-col absolute top-4 left-4">
