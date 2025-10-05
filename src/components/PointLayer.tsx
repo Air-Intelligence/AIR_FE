@@ -69,7 +69,11 @@ export const PointLayer = ({ map }: PointLayerProps) => {
             }
         };
 
-        fetchData();
+        // fetchData();
+
+        const intervalId = setInterval(fetchData, 5000);
+
+        return () => clearInterval(intervalId);
     }, [map, bounds]);
 
     return null;
