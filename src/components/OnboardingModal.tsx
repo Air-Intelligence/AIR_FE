@@ -103,25 +103,25 @@ export const OnboardingModal = ({ onFinish }: { onFinish: () => void }) => {
                         <div className="flex flex-col justify-between">
                             <MaskFirst />
                             <div className="flex flex-row items-center justify-center mt-2">
-                                <RedX />
+                                <GreenO />
                             </div>
                         </div>
                         <div className="flex flex-col justify-between">
                             <MaskSecond />
                             <div className="flex flex-row items-center justify-center">
-                                <GreenO />
+                                <RedX />
                             </div>
                         </div>
                         <div className="flex flex-col justify-between">
                             <MaskThird />
                             <div className="flex flex-row items-center justify-center mt-2">
-                                <GreenO />
+                                <RedX />
                             </div>
                         </div>
                         <div className="flex flex-col justify-between">
                             <MaskFour />
                             <div className="flex flex-row items-center justify-center">
-                                <GreenO />
+                                <RedX />
                             </div>
                         </div>
                     </div>
